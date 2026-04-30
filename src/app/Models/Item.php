@@ -15,6 +15,8 @@ class Item extends Model
         'description',
         'price',
         'status',
+        'brand_name',
+        'condition',
     ];
 
     public function seller()
