@@ -22,7 +22,7 @@
         </div>
         @endif
 
-        <form action="{{ route('items.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('exhibition.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <section class="sell-section">

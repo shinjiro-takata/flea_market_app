@@ -25,7 +25,10 @@
 
             <nav class="app-header__nav">
                 @if (auth()->check())
-                <a href="#">ログアウト</a>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="logout-button">ログアウト</button>
+                </form>
                 @else
                 <a href="{{ route('login') }}">ログイン</a>
                 @endif

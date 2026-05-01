@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Item;
 use App\Models\ItemImage;
@@ -98,7 +98,7 @@ class ScreenController extends Controller
         return view('items.sell');
     }
 
-    public function storeItem(StoreItemRequest $request)
+    public function exhibition(ExhibitionRequest $request)
     {
         $validated = $request->validated();
 
