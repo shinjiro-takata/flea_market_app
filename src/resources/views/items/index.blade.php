@@ -29,7 +29,13 @@
         <a href="{{ route('items.show', ['item_id' => $item->id]) }}" class="card">
             <div class="card__image">
                 @if ($item->images->isNotEmpty())
-                <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="{{ $item->name }}">
+                @php
+                $firstImagePath = $item->images->first()->image_path;
+                $firstImageSrc = \Illuminate\Support\Str::startsWith($firstImagePath, ['http://', 'https://'])
+                ? $firstImagePath
+                : asset('storage/' . $firstImagePath);
+                @endphp
+                <img src="{{ $firstImageSrc }}" alt="{{ $item->name }}">
                 @else
                 <span>画像なし</span>
                 @endif

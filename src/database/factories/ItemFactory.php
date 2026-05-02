@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use App\Models\Category;
 
 class ItemFactory extends Factory
 {
@@ -23,5 +24,13 @@ class ItemFactory extends Factory
             'brand_name' => $this->faker->word(),
             'condition' => '良好',
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function ($item) {
+            $categoryIds = Category::inRandomOrder()->limit(rand(2, 3))->pluck('id');
+            $item->categories()->attach($categoryIds);
+        });
     }
 }

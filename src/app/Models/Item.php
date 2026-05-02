@@ -38,4 +38,9 @@ class Item extends Model
     {
         return $this->hasOne(Order::class);
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'item_category');
+    }
 }

@@ -39,20 +39,13 @@
                 <div class="field-block">
                     <h3 class="sell-label">カテゴリー</h3>
                     <div class="category-chips">
-                        <span class="chip">ファッション</span>
-                        <span class="chip">家電</span>
-                        <span class="chip">インテリア</span>
-                        <span class="chip">レディース</span>
-                        <span class="chip">メンズ</span>
-                        <span class="chip">コスメ</span>
-                        <span class="chip">本</span>
-                        <span class="chip">ゲーム</span>
-                        <span class="chip">スポーツ</span>
-                        <span class="chip">キッチン</span>
-                        <span class="chip">ハンドメイド</span>
-                        <span class="chip">アクセサリー</span>
-                        <span class="chip">おもちゃ</span>
-                        <span class="chip">ベビー・キッズ</span>
+                        @foreach ($categories as $category)
+                        <label class="chip-label">
+                            <input type="checkbox" name="categories[]" value="{{ $category->id }}"
+                                @if (in_array($category->id, old('categories', []))) checked @endif>
+                            <span class="chip">{{ $category->name }}</span>
+                        </label>
+                        @endforeach
                     </div>
                 </div>
 

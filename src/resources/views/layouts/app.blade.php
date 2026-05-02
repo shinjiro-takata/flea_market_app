@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Flea Market')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/layouts/app.css') }}">
     @yield('styles')
 </head>
@@ -41,6 +42,7 @@
     <main>
         @yield('content')
     </main>
+    @yield('scripts')
 </body>
 
 </html>

@@ -3,7 +3,19 @@
 @section('title', $item->name . ' | 商品詳細')
 
 @section('styles')
+
 <link rel="stylesheet" href="{{ asset('css/items/show.css') }}">
+@endsection
+
+@section('scripts')
+<script>
+    window.currentUserId = {
+        {
+            auth() - > id() ?? 'null'
+        }
+    };
+</script>
+<script src="{{ asset('js/like.js') }}"></script>
 @endsection
 
 @section('content')
@@ -13,8 +25,13 @@
             <div class="gallery">
                 @if ($item->images->isNotEmpty())
                 @foreach ($item->images as $image)
+                @php
+                $imageSrc = \Illuminate\Support\Str::startsWith($image->image_path, ['http://', 'https://'])
+                ? $image->image_path
+                : asset('storage/' . $image->image_path);
+                @endphp
                 <div class="gallery__item">
-                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $item->name }}">
+                    <img src="{{ $imageSrc }}" alt="{{ $item->name }}">
                 </div>
                 @endforeach
                 @else
@@ -30,9 +47,9 @@
             <p class="price">￥{{ number_format($item->price) }}</p>
 
             <div class="chips">
-                <span class="chip">{{ $item->status === 'sold' ? 'Sold' : '販売中' }}</span>
-                <span class="chip">いいね {{ $item->likes_count }}</span>
-                <span class="chip">{{ $isLiked ? 'あなたはいいね済み' : '未いいね' }}</span>
+                <button id="like-btn-{{ $item->id }}" onclick="toggleLike({{ $item->id }})">
+                    いいね ({{ $item->likes_count }})
+                </button>
             </div>
 
             <div class="seller-box">
@@ -45,7 +62,25 @@
                 <p>{{ $item->description }}</p>
             </div>
 
-            <p class="condition">商品の状態 {{ $item->condition ?? '未設定' }}</p>
+            <div class="info-box">
+                <h2>商品の情報</h2>
+                <div class="info-row">
+                    <div class="info-label">カテゴリー</div>
+                    <div class="info-value">
+                        @if ($item->categories->isNotEmpty())
+                        @foreach ($item->categories as $category)
+                        <span class="category-tag">{{ $category->name }}</span>
+                        @endforeach
+                        @else
+                        <span>未設定</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">商品の状態</div>
+                    <div class="info-value">{{ $item->condition ?? '未設定' }}</div>
+                </div>
+            </div>
 
             <div class="actions">
                 @if ($item->status === 'sold')

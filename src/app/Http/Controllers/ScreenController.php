@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\Item;
 use App\Models\ItemImage;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -95,45 +96,51 @@ class ScreenController extends Controller
 
     public function sell()
     {
-        return view('items.sell');
+        $categories = Category::all();
+        return view('items.sell', ['categories' => $categories]);
     }
 
     public function exhibition(ExhibitionRequest $request)
     {
-        $validated = $request->validated();
+        $userId = $this->resolveSellerId();
 
         $item = Item::create([
-            'seller_id' => $this->resolveSellerId(),
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-            'price' => $validated['price'],
+            'seller_id' => $userId,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
             'status' => 'on_sale',
-            'brand_name' => $validated['brand_name'] ?? null,
-            'condition' => $validated['condition'] ?? null,
+            'brand_name' => $request->brand_name,
+            'condition' => $request->condition,
         ]);
 
-        $imagePath = $request->file('image')->store('items', 'public');
+        // 画像保存
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('items', 'public');
+            ItemImage::create([
+                'item_id' => $item->id,
+                'image_path' => $path,
+            ]);
+        }
 
-        ItemImage::create([
-            'item_id' => $item->id,
-            'image_path' => $imagePath,
-            'sort_order' => 0,
-        ]);
+        // カテゴリをアタッチ
+        $item->categories()->attach($request->categories);
 
-        return redirect()->route('items.show', ['item_id' => $item->id]);
+        return redirect()->route('items.show', $item->id);
     }
 
     public function mypage(Request $request)
     {
-        $page = $request->query('page', 'profile');
+        $user = auth()->user();
+        $page = $request->query('page', 'sell');
+        $sellItems = $user->items()->with('images')->latest()->get();
+        $buyItems = $user->purchaseOrders()->with('item.images')->latest()->get();
 
-        return view('pages.screen', [
-            'title' => 'プロフィール画面',
-            'path' => '/mypage',
-            'description' => 'page=buy と page=sell で購入一覧・出品一覧を切り替える想定です。',
-            'state' => [
-                'page' => $page,
-            ],
+        return view('items.mypage', [
+            'user' => $user,
+            'page' => $page,
+            'sellItems' => $sellItems,
+            'buyItems' => $buyItems,
         ]);
     }
 
@@ -143,7 +150,9 @@ class ScreenController extends Controller
             'title' => 'プロフィール編集画面（設定画面）',
             'path' => '/mypage/profile',
             'description' => 'プロフィール情報や住所を編集する画面です。',
-            'state' => [],
+            'state' => [
+                'user' => auth()->user(),
+            ],
         ]);
     }
 
