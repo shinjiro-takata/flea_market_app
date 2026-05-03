@@ -23,7 +23,7 @@ Route::get('/purchase/address/{item_id}', [ScreenController::class, 'purchaseAdd
 Route::middleware('auth')->group(function () {
     Route::get('/sell', [ScreenController::class, 'sell'])->name('items.sell');
     Route::post('/sell', [ScreenController::class, 'exhibition'])->name('exhibition.store');
-    Route::get('/mypage', [ScreenController::class, 'mypage'])->name('mypage');
+    Route::get('/mypage', [ScreenController::class, 'mypage'])->name('items.mypage');
     Route::get('/mypage/profile', [ScreenController::class, 'profile'])->name('mypage.profile');
     Route::post('/item/{item_id}/like', [LikeController::class, 'toggle'])->name('like.toggle');
     });

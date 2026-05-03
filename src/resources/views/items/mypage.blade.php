@@ -29,11 +29,11 @@
     <!-- タブ切り替え -->
     <div class="tabs-section">
         <div class="tabs">
-            <a href="{{ route('mypage', ['page' => 'sell']) }}"
+            <a href="{{ route('items.mypage', ['page' => 'sell']) }}"
                 class="tab-button {{ $page === 'sell' ? 'active' : '' }}">
                 出品した商品
             </a>
-            <a href="{{ route('mypage', ['page' => 'buy']) }}"
+            <a href="{{ route('items.mypage', ['page' => 'buy']) }}"
                 class="tab-button {{ $page === 'buy' ? 'active' : '' }}">
                 購入した商品
             </a>
