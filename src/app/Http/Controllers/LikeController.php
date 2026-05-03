@@ -12,12 +12,12 @@ class LikeController extends Controller
     {
         $user = auth()->user();
         $item = Item::find($itemId);
-        
+
         $like = Like::where('user_id', $user->id)
             ->where('item_id', $itemId)
             ->first();
 
-        if($like) {
+        if ($like) {
             $like->delete();
         } else {
             Like::create([
@@ -26,11 +26,6 @@ class LikeController extends Controller
             ]);
         }
 
-        $likesCount = $item->likes()->count();
-
-        return response()->json([
-            'liked' => $like ? false : true,
-            'likes_count' => $likesCount,
-        ]);
+        return redirect()->back();
     }
 }

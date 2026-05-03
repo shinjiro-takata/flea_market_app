@@ -3,19 +3,10 @@
 @section('title', $item->name . ' | 商品詳細')
 
 @section('styles')
-
 <link rel="stylesheet" href="{{ asset('css/items/show.css') }}">
 @endsection
 
 @section('scripts')
-<script>
-    window.currentUserId = {
-        {
-            auth() - > id() ?? 'null'
-        }
-    };
-</script>
-<script src="{{ asset('js/like.js') }}"></script>
 @endsection
 
 @section('content')
@@ -47,9 +38,18 @@
             <p class="price">￥{{ number_format($item->price) }}</p>
 
             <div class="chips">
-                <button id="like-btn-{{ $item->id }}" onclick="toggleLike({{ $item->id }})">
+                @if (auth()->check())
+                <form action="{{ route('like.toggle', $item->id) }}" method="POST" class="like-form">
+                    @csrf
+                    <button type="submit" class="like-button">
+                        いいね ({{ $item->likes_count }})
+                    </button>
+                </form>
+                @else
+                <a href="{{ route('login') }}" class="like-button">
                     いいね ({{ $item->likes_count }})
-                </button>
+                </a>
+                @endif
             </div>
 
             <div class="seller-box">

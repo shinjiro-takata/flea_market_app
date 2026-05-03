@@ -124,6 +124,24 @@ body {
     color: var(--muted);
 }
 
+.like-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.like-button {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .seller-box,
 .description-box {
     margin-top: 22px;

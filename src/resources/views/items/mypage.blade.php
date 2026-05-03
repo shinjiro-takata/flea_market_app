@@ -29,16 +29,14 @@
     <!-- タブ切り替え -->
     <div class="tabs-section">
         <div class="tabs">
-            <button
-                class="tab-button {{ $page === 'sell' ? 'active' : '' }}"
-                onclick="switchTab('sell')">
+            <a href="{{ route('mypage', ['page' => 'sell']) }}"
+                class="tab-button {{ $page === 'sell' ? 'active' : '' }}">
                 出品した商品
-            </button>
-            <button
-                class="tab-button {{ $page === 'buy' ? 'active' : '' }}"
-                onclick="switchTab('buy')">
+            </a>
+            <a href="{{ route('mypage', ['page' => 'buy']) }}"
+                class="tab-button {{ $page === 'buy' ? 'active' : '' }}">
                 購入した商品
-            </button>
+            </a>
         </div>
 
         <!-- 出品した商品タブ -->
@@ -101,24 +99,5 @@
             @endif
         </div>
     </div>
-    <script>
-        function switchTab(tabName) {
-            // タブボタンの活性化切り替え
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // タブコンテンツの表示/非表示切り替え
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(tabName + '-tab').classList.add('active');
-
-            // クエリパラメータを更新（ページ遷移なし）
-            const url = new URL(window.location);
-            url.searchParams.set('page', tabName);
-            window.history.pushState({}, '', url);
-        }
-    </script>
     @endsection
+    function switchTab(tabName) {
