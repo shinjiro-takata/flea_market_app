@@ -13,16 +13,12 @@ class Order extends Model
         'item_id',
         'buyer_id',
         'seller_id',
-        'subtotal_amount',
+        'address_id',
         'payment_method',
-        'payment_status',
-        'stripe_checkout_session_id',
-        'paid_at',
+        'status',
     ];
 
-    protected $casts = [
-        'paid_at' => 'datetime',
-    ];
+    protected $casts = [];
 
     public function item()
     {
@@ -37,5 +33,10 @@ class Order extends Model
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
     }
 }

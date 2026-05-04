@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ScreenController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ScreenController::class, 'index'])->name('items.index');
 Route::get('/item/{item_id}', [ScreenController::class, 'showItem'])->name('items.show');
-Route::get('/purchase/{item_id}', [ScreenController::class, 'purchase'])->name('purchase.show');
+Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
 Route::get('/purchase/address/{item_id}', [ScreenController::class, 'purchaseAddress'])->name('purchase.address');
 
 Route::middleware('auth')->group(function () {
@@ -28,4 +29,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ScreenController::class, 'profile'])->name('mypage.profile');
     Route::post('/item/{item_id}/like', [LikeController::class, 'toggle'])->name('like.toggle');
     Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comment.store');
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
 });

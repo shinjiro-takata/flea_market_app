@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\ItemImage;
@@ -166,5 +167,14 @@ class MarketplaceDummySeeder extends Seeder
                 ]);
             }
         }
+
+        // Address データ作成
+        Address::create([
+            'user_id' => $seller->id,
+            'postal_code' => '100-0001',
+            'prefecture' => '東京都',
+            'municipality' => '千代田区',
+            'street_address' => '丸の内1-1-1',
+        ]);
     }
 }
