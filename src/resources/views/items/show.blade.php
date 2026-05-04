@@ -50,6 +50,16 @@
                     いいね ({{ $item->likes_count }})
                 </a>
                 @endif
+                <span class="comment-count">
+                    コメント({{ $item->comments_count }})
+                </span>
+            </div>
+            <div class="actions">
+                @if ($item->status === 'sold')
+                <button class="btn btn--disabled" disabled>売り切れです</button>
+                @else
+                <a href="{{ route('purchase.show', ['item_id' => $item->id]) }}" class="btn">購入手続きへ</a>
+                @endif
             </div>
 
             <div class="seller-box">
@@ -82,13 +92,31 @@
                 </div>
             </div>
 
-            <div class="actions">
-                @if ($item->status === 'sold')
-                <button class="btn btn--disabled" disabled>売り切れです</button>
-                @else
-                <a href="{{ route('purchase.show', ['item_id' => $item->id]) }}" class="btn">購入手続きへ</a>
-                @endif
+            <div class="comments-section">
+                <h2>コメント({{ $item->comments_count }})</h2>
+
+                @foreach($item->comments as $comment)
+                <div class="comment-item">
+                    <div class="comment-user">
+                        {{ $comment->user->name }}
+                    </div>
+                    <div class="comment-content">
+                        {{ $comment->comment }}
+                    </div>
+                </div>
+                @endforeach
             </div>
+
+            @if(auth()->check())
+            <form action="{{ route('comment.store', $item->id) }}" method="POST" class="comment-form">
+                @csrf
+                <textarea name="comment" placeholder="コメントを入力"></textarea>
+                @error('comment')
+                <div class="error-message">{{ $message }}</div>
+                @enderror
+                <button type="submit">コメントを送信する</button>
+            </form>
+            @endif
         </section>
     </div>
 </div>

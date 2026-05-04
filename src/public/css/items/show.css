@@ -244,6 +244,92 @@ body {
     cursor: not-allowed;
 }
 
+.comment-count {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.comments-section {
+    margin-top: 22px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.comments-section h2 {
+    margin: 0 0 16px;
+    font-size: 18px;
+}
+
+.comment-item {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+}
+
+.comment-item:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.comment-user {
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.comment-content {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.comment-form {
+    margin-top: 22px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.comment-form button {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
 @media (max-width: 900px) {
     .content {
         grid-template-columns: 1fr;

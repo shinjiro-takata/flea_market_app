@@ -43,4 +43,14 @@ class Item extends Model
     {
         return $this->belongsToMany(Category::class, 'item_category');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function getCommentsCountAttribute()
+    {
+        return $this->comments()->count();
+    }
 }

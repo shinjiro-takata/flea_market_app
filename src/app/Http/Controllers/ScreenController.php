@@ -52,8 +52,11 @@ class ScreenController extends Controller
                 'images' => function ($query) {
                     $query->orderBy('sort_order')->orderBy('id');
                 },
+                'comments' => function ($query) {
+                    $query->with('user')->latest();
+                },
             ])
-            ->withCount('likes')
+            ->withCount(['likes', 'comments'])
             ->findOrFail($itemId);
 
         $isLiked = false;

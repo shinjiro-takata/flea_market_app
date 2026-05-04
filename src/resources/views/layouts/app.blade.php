@@ -33,7 +33,7 @@
                 @else
                 <a href="{{ route('login') }}">ログイン</a>
                 @endif
-                <a href="{{ route('mypage') }}">マイページ</a>
+                <a href="{{ route('items.mypage') }}">マイページ</a>
                 <a href="{{ route('items.sell') }}" class="app-header__sell">出品</a>
             </nav>
         </div>

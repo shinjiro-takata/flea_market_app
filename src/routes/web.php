@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ScreenController;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [ScreenController::class, 'mypage'])->name('items.mypage');
     Route::get('/mypage/profile', [ScreenController::class, 'profile'])->name('mypage.profile');
     Route::post('/item/{item_id}/like', [LikeController::class, 'toggle'])->name('like.toggle');
-    });
+    Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comment.store');
+});

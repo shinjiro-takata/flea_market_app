@@ -41,9 +41,9 @@
                 <li><a href="{{ route('purchase.show', ['item_id' => 1]) }}">商品購入画面</a></li>
                 <li><a href="{{ route('purchase.address', ['item_id' => 1]) }}">送付先住所変更画面</a></li>
                 <li><a href="{{ route('items.sell') }}">商品出品画面</a></li>
-                <li><a href="{{ route('mypage') }}">プロフィール画面</a></li>
-                <li><a href="{{ route('mypage', ['page' => 'buy']) }}">プロフィール画面_購入した商品一覧</a></li>
-                <li><a href="{{ route('mypage', ['page' => 'sell']) }}">プロフィール画面_出品した商品一覧</a></li>
+                <li><a href="{{ route('items.mypage') }}">プロフィール画面</a></li>
+                <li><a href="{{ route('items.mypage', ['page' => 'buy']) }}">プロフィール画面_購入した商品一覧</a></li>
+                <li><a href="{{ route('items.mypage', ['page' => 'sell']) }}">プロフィール画面_出品した商品一覧</a></li>
                 <li><a href="{{ route('mypage.profile') }}">プロフィール編集画面</a></li>
             </ul>
         </div>
