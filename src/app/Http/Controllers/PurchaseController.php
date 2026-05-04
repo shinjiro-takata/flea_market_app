@@ -13,7 +13,7 @@ class PurchaseController extends Controller
     {
         $item = Item::find($item_id);
         $address = auth()->user()->addresses()->first();
-        
+
         return view('purchase.show', [
             'item' => $item,
             'address' => $address,
@@ -24,17 +24,17 @@ class PurchaseController extends Controller
     {
         \Log::info('Purchase attempt for item: ' . $item_id);
         \Log::info('Request data: ' . json_encode($request->all()));
-        
+
         $item = Item::find($item_id);
-        
+
         if (!$item) {
             \Log::error('Item not found: ' . $item_id);
             return redirect()->route('items.index')->with('error', '商品が見つかりません');
         }
-        
+
         \Log::info('Item found: ' . $item->name);
         \Log::info('Creating order with seller_id: ' . $item->seller_id . ', buyer_id: ' . auth()->id());
-        
+
         try {
             Order::create([
                 'item_id' => $item_id,
@@ -44,17 +44,17 @@ class PurchaseController extends Controller
                 'payment_method' => $request->input('payment_method'),
                 'status' => 'pending',
             ]);
-            
+
             \Log::info('Order created successfully');
-            
+
             $item->update(['status' => 'sold']);
-            
+
             \Log::info('Item status updated to sold');
         } catch (\Exception $e) {
             \Log::error('Error creating order: ' . $e->getMessage());
             return redirect()->route('items.index')->with('error', $e->getMessage());
         }
-        
+
         return redirect()->route('items.index');
     }
 }
