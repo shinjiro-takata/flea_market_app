@@ -35,5 +35,6 @@
         </div>
         <button type="submit" class="btn btn-primary">登録する</button>
     </form>
+    <p>ログインは<a href="{{ route('login') }}">こちら</a></p>
 </div>
 @endsection
