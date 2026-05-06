@@ -34,17 +34,11 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name.required' => 'お名前を入力してください',
-            'name.string' => '名前は文字列でなければなりません。',
-            'name.max' => '名前は20文字以内でなければなりません。',
             'email.required' => 'メールアドレスを入力してください',
-            'email.string' => 'メールアドレスは文字列でなければなりません。',
-            'email.email' => 'メールアドレスはメール形式で入力してください。',
-            'email.max' => 'メールアドレスは255文字以内でなければなりません。',
-            'email.unique' => 'このメールアドレスは既に使用されています。',
+            'email.email' => 'メールアドレスはメール形式で入力してください',
             'password.required' => 'パスワードを入力してください',
-            'password.string' => 'パスワードは文字列でなければなりません。',
             'password.min' => 'パスワードは8文字以上で入力してください',
-            'password.confirmed' => 'パスワードと一致しません。',
+            'password.confirmed' => 'パスワードと一致しません',
         ];
     }
 }
