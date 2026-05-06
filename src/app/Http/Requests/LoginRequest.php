@@ -33,12 +33,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email.required' => 'メールアドレスを入力してください',
-            'email.string' => 'メールアドレスは文字列でなければなりません。',
-            'email.email' => 'メールアドレスはメール形式で入力してください。',
-            'email.max' => 'メールアドレスは255文字以内でなければなりません。',
             'password.required' => 'パスワードを入力してください',
-            'password.string' => 'パスワードは文字列でなければなりません。',
-            'password.min' => 'パスワードは8文字以上で入力してください',
         ];
     }
 }
