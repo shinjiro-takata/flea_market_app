@@ -9,8 +9,8 @@
 @section('content')
 <div class="container">
     <div class="tabs">
-        <a href="{{ route('items.index') }}" class="{{ $tab === 'recommended' ? 'is-active' : '' }}">おすすめ</a>
-        <a href="{{ route('items.index', ['tab' => 'mylist']) }}" class="{{ $tab === 'mylist' ? 'is-active' : '' }}">マイリスト</a>
+        <a href="{{ route('items.index', $q ? ['q' => $q] : []) }}" class="{{ $tab === 'recommended' ? 'is-active' : '' }}">おすすめ</a>
+        <a href="{{ route('items.index', ['tab' => 'mylist'] + ($q ? ['q' => $q] : [])) }}" class="{{ $tab === 'mylist' ? 'is-active' : '' }}">マイリスト</a>
     </div>
 
     @if ($showLoginMessage)

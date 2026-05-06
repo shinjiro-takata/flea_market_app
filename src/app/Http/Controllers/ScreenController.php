@@ -16,11 +16,17 @@ class ScreenController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab') === 'mylist' ? 'mylist' : 'recommended';
+        $q = $request->query('q') ?? '';
 
         $query = Item::query()
             ->with(['seller', 'images'])
             ->withCount('likes')
             ->latest();
+
+        // 自分が出品した商品は除外
+        if (auth()->check()) {
+            $query->where('seller_id', '!=', auth()->id());
+        }
 
         $showLoginMessage = false;
 
@@ -35,12 +41,18 @@ class ScreenController extends Controller
             }
         }
 
+        // 商品名で検索
+        if (!empty($q)) {
+            $query->where('name', 'like', '%' . $q . '%');
+        }
+
         $items = $query->get();
 
         return view('items.index', [
             'items' => $items,
             'tab' => $tab,
             'showLoginMessage' => $showLoginMessage,
+            'q' => $q,
         ]);
     }
 

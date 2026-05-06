@@ -12,16 +12,16 @@
             <label for="email">メールアドレス</label>
             <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
             @error('email')
-                @if ($message !== 'These credentials do not match our records.')
-                <div class="error">{{ $message }}</div>
-                @endif
+            @if ($message !== 'These credentials do not match our records.')
+            <div class="error">{{ $message }}</div>
+            @endif
             @enderror
         </div>
         <div class="form-group">
             <label for="password">パスワード</label>
             <input type="password" class="form-control" id="password" name="password" required>
             @error('password')
-                <div class="error">{{ $message }}</div>
+            <div class="error">{{ $message }}</div>
             @enderror
         </div>
         <button type="submit" class="btn btn-primary">ログインする</button>
