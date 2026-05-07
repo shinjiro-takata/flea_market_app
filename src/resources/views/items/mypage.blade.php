@@ -23,6 +23,9 @@
                 <h2>{{ $user->name }}</h2>
                 <p class="profile-email">{{ $user->email }}</p>
             </div>
+            <a href="{{ route('mypage.profile') }}" class="edit-profile-button">
+                プロフィールを編集
+            </a>
         </div>
     </div>
 

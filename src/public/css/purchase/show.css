@@ -94,12 +94,35 @@
     color: #999;
 }
 
-.payment-method-select {
-    padding: 10px;
+.payment-method-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.payment-option:hover {
+    background-color: #f9f9f9;
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.payment-option span {
     font-size: 16px;
-    margin-bottom: 15px;
 }
 
 .subtotal-box {

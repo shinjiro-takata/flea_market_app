@@ -42,16 +42,19 @@
                 <form action="{{ route('like.toggle', $item->id) }}" method="POST" class="like-form">
                     @csrf
                     <button type="submit" class="like-button">
-                        いいね ({{ $item->likes_count }})
+                        <img src="{{ $isLiked ? asset('images/icons/ハートロゴ_ピンク.png') : asset('images/icons/ハートロゴ_デフォルト.png') }}" alt="いいね" class="like-icon">
+                        <span class="like-count">({{ $item->likes_count }})</span>
                     </button>
                 </form>
                 @else
                 <a href="{{ route('login') }}" class="like-button">
-                    いいね ({{ $item->likes_count }})
+                    <img src="{{ asset('images/icons/ハートロゴ_デフォルト.png') }}" alt="いいね" class="like-icon">
+                    <span class="like-count">({{ $item->likes_count }})</span>
                 </a>
                 @endif
                 <span class="comment-count">
-                    コメント({{ $item->comments_count }})
+                    <img src="{{ asset('images/icons/ふきだしロゴ.png') }}" alt="コメント" class="comment-icon">
+                    <span>コメント({{ $item->comments_count }})</span>
                 </span>
             </div>
             <div class="actions">

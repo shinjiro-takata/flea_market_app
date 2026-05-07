@@ -56,7 +56,7 @@
         </div>
 
         <!-- 購入フォーム -->
-        <form action="{{ route('purchase.store', $item->id) }}" method="POST">
+        <form action="{{ route('purchase.store', $item->id) }}" method="POST" id="purchase-form">
             @csrf
             <input type="hidden" name="address_id" value="{{ $address->id ?? '' }}">
 
@@ -64,13 +64,19 @@
             <div class="purchase-section">
                 <h2>支払い方法</h2>
 
-                <select name="payment_method" class="payment-method-select">
-                    <option value="credit_card">クレジットカード</option>
-                    <option value="convenience_store">コンビニ支払い</option>
-                </select>
+                <div class="payment-method-options">
+                    <label class="payment-option">
+                        <input type="radio" name="payment_method" value="credit_card" checked>
+                        <span>クレジットカード</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment_method" value="convenience_store">
+                        <span>コンビニ支払い</span>
+                    </label>
+                </div>
 
                 <div class="subtotal-box">
-                    <p>小計: <strong>￥{{ number_format($item->price) }}</strong></p>
+                    <p>小計: <strong id="subtotal">￥{{ number_format($item->price) }}</strong></p>
                 </div>
             </div>
 

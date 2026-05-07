@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Address;
 use App\Models\Item;
 use App\Models\ItemImage;
 use App\Models\User;
@@ -99,14 +100,39 @@ class ScreenController extends Controller
 
     public function purchaseAddress($itemId)
     {
-        return view('pages.screen', [
-            'title' => '送付先住所変更画面',
-            'path' => '/purchase/address/{item_id}',
-            'description' => '購入前に配送先住所を変更する画面です。',
-            'state' => [
-                'item_id' => $itemId,
-            ],
+        $item = Item::find($itemId);
+        $user = auth()->user();
+        $address = $user->addresses()->first();
+
+        return view('purchase.address', [
+            'item' => $item,
+            'address' => $address,
         ]);
+    }
+
+    public function updatePurchaseAddress(Request $request, $itemId)
+    {
+        $user = auth()->user();
+        $address = $user->addresses()->first();
+
+        if ($address) {
+            $address->update([
+                'postal_code' => $request->input('postal_code'),
+                'prefecture' => $request->input('prefecture'),
+                'municipality' => $request->input('municipality'),
+                'street_address' => $request->input('street_address'),
+            ]);
+        } else {
+            Address::create([
+                'user_id' => $user->id,
+                'postal_code' => $request->input('postal_code'),
+                'prefecture' => $request->input('prefecture'),
+                'municipality' => $request->input('municipality'),
+                'street_address' => $request->input('street_address'),
+            ]);
+        }
+
+        return redirect()->route('purchase.show', $itemId)->with('success', '住所を更新しました');
     }
 
     public function sell()
@@ -161,14 +187,51 @@ class ScreenController extends Controller
 
     public function profile()
     {
-        return view('pages.screen', [
-            'title' => 'プロフィール編集画面（設定画面）',
-            'path' => '/mypage/profile',
-            'description' => 'プロフィール情報や住所を編集する画面です。',
-            'state' => [
-                'user' => auth()->user(),
-            ],
+        $user = auth()->user();
+        $address = $user->addresses()->first();
+
+        return view('items.profile', [
+            'user' => $user,
+            'address' => $address,
         ]);
+    }
+
+    public function updateProfile(\Illuminate\Http\Request $request)
+    {
+        $user = auth()->user();
+
+        // プロフィール画像の保存
+        if ($request->hasFile('profile_image')) {
+            $path = $request->file('profile_image')->store('profiles', 'public');
+            $user->update(['profile_image' => $path]);
+        }
+
+        // ユーザー情報の更新
+        $user->update([
+            'name' => $request->input('name'),
+        ]);
+
+        // アドレス情報の更新または作成
+        $address = $user->addresses()->first();
+
+        if ($address) {
+            $address->update([
+                'postal_code' => $request->input('postal_code'),
+                'prefecture' => $request->input('prefecture'),
+                'municipality' => $request->input('municipality'),
+                'street_address' => $request->input('street_address'),
+            ]);
+        } else {
+            \App\Models\Address::create([
+                'user_id' => $user->id,
+                'postal_code' => $request->input('postal_code'),
+                'prefecture' => $request->input('prefecture'),
+                'municipality' => $request->input('municipality'),
+                'street_address' => $request->input('street_address'),
+            ]);
+        }
+
+        return redirect()->route('items.mypage')->with('success', 'プロフィールを更新しました');
     }
 
     private function resolveSellerId()

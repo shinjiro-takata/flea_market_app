@@ -15,6 +15,7 @@
 .profile-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
 }
 
@@ -24,6 +25,11 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #ddd;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    flex: 1;
 }
 
 .profile-info h2 {
@@ -34,6 +40,26 @@
 .profile-email {
     color: #666;
     margin: 0;
+}
+
+.edit-profile-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #fff;
+    border: 2px solid #FF6B6B;
+    border-radius: 20px;
+    color: #FF6B6B;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.edit-profile-button:hover {
+    background: #FF6B6B;
+    color: #fff;
 }
 
 .tabs-section {

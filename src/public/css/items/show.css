@@ -131,7 +131,9 @@ body {
 }
 
 .like-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     background: #fff;
     border: 1px solid var(--line);
     border-radius: 999px;
@@ -140,6 +142,16 @@ body {
     color: var(--muted);
     cursor: pointer;
     text-decoration: none;
+}
+
+.like-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.like-count {
+    display: inline;
 }
 
 .seller-box,
@@ -245,13 +257,21 @@ body {
 }
 
 .comment-count {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     background: #fff;
     border: 1px solid var(--line);
     border-radius: 999px;
     padding: 6px 12px;
     font-size: 13px;
     color: var(--muted);
+}
+
+.comment-count .comment-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 .comments-section {

@@ -13,7 +13,9 @@
 <body>
     <header class="app-header">
         <div class="app-header__inner">
-            <a href="{{ route('items.index') }}" class="app-header__logo">COACHTECH</a>
+            <a href="{{ route('items.index') }}" class="app-header__logo">
+                <img src="{{ asset('images/logo/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH">
+            </a>
 
             <form action="{{ route('items.index') }}" method="get" class="app-header__search" role="search">
                 <input
@@ -40,6 +42,18 @@
     </header>
 
     <main>
+        @if ($message = session('success'))
+        <div style="background: #d4edda; color: #155724; padding: 12px 20px; margin: 10px 0; border-radius: 4px; text-align: center;">
+            {{ $message }}
+        </div>
+        @endif
+
+        @if ($message = session('error'))
+        <div style="background: #f8d7da; color: #721c24; padding: 12px 20px; margin: 10px 0; border-radius: 4px; text-align: center;">
+            {{ $message }}
+        </div>
+        @endif
+
         @yield('content')
     </main>
     @yield('scripts')
