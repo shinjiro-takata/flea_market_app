@@ -3,30 +3,43 @@
 namespace Tests\Feature\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
 class LoginTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $user = User::factory()->create();
+    use RefreshDatabase;
 
+    /**
+     * メールアドレスが入力されていない場合、バリデーションメッセージが表示される
+     */
+    public function test_login_fails_without_email()
+    {
         $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
+            'password' => 'password123',
         ]);
 
-        $this->assertAuthenticated();
+        $response->assertSessionHasErrors('email');
+        $this->assertGuest();
     }
 
-    public function test_miss_password()
+    /**
+     * パスワードが入力されていない場合、バリデーションメッセージが表示される
+     */
+    public function test_login_fails_without_password()
+    {
+        $response = $this->post('/login', [
+            'email' => 'test@example.com',
+        ]);
+
+        $response->assertSessionHasErrors('password');
+        $this->assertGuest();
+    }
+
+    /**
+     * 入力情報が間違っている場合、バリデーションメッセージが表示される
+     */
+    public function test_login_fails_with_invalid_credentials()
     {
         $user = User::factory()->create();
 
@@ -39,16 +52,18 @@ class LoginTest extends TestCase
         $response->assertSessionHasErrors('email');
     }
 
-    public function test_miss_email()
+    /**
+     * 正しい情報が入力された場合、ログイン処理が実行される
+     */
+    public function test_login_succeeds_with_valid_credentials()
     {
         $user = User::factory()->create();
 
         $response = $this->post('/login', [
-            'email' => 'wrongemail@example.com',
+            'email' => $user->email,
             'password' => 'password',
         ]);
 
-        $this->assertGuest();
-        $response->assertSessionHasErrors('email');
+        $this->assertAuthenticatedAs($user);
     }
 }
