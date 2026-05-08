@@ -60,6 +60,10 @@
     color: #fff;
 }
 
+.image-select-button input[type="file"] {
+    display: none;
+}
+
 /* フォームグループ */
 .profile-form {
     display: flex;

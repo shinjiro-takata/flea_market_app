@@ -21,17 +21,15 @@
             : asset('images/default-profile.png');
             @endphp
             <img src="{{ $profileImageSrc }}" alt="プロフィール画像" class="profile-image">
-            <button type="button" class="image-select-button" onclick="document.querySelector('input[name=profile_image]').click()">
+            <label class="image-select-button">
                 画像を選択する
-            </button>
+                <input type="file" name="profile_image" accept="image/*" style="display: none;">
+            </label>
         </div>
 
         <!-- プロフィール編集フォーム -->
         <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="profile-form">
             @csrf
-
-            <!-- プロフィール画像入力（非表示） -->
-            <input type="file" name="profile_image" accept="image/*" style="display: none;">
 
             <!-- ユーザー名 -->
             <div class="form-group">
@@ -117,17 +115,4 @@
         </form>
     </div>
 </div>
-
-<script>
-    document.querySelector('input[name=profile_image]').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                document.querySelector('.profile-image').src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-</script>
 @endsection
