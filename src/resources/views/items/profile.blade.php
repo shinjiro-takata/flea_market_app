@@ -119,8 +119,7 @@
 </div>
 
 <script>
-    // ファイル選択時の処理
-    document.getElementById('profile-image-input').addEventListener('change', function(e) {
+    document.querySelector('input[name=profile_image]').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
