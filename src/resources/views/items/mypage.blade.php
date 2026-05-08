@@ -43,7 +43,7 @@
         </div>
 
         <!-- 出品した商品タブ -->
-        <div class="tab-content {{ $page === 'sell' ? 'active' : '' }}" id="sell-tab">
+        <div class="tab-content {{ $page === 'sell' ? 'active' : '' }}">
             @if($sellItems->isEmpty())
             <p class="empty-message">出品した商品はありません</p>
             @else
@@ -73,7 +73,7 @@
         </div>
 
         <!-- 購入した商品タブ -->
-        <div class="tab-content {{ $page === 'buy' ? 'active' : '' }}" id="buy-tab">
+        <div class="tab-content {{ $page === 'buy' ? 'active' : '' }}">
             @if($buyItems->isEmpty())
             <p class="empty-message">購入した商品はありません</p>
             @else

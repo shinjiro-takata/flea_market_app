@@ -71,6 +71,22 @@ body {
     font-weight: 700;
 }
 
+
+.logout-button {
+    border: none;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.logout-button:hover {
+    opacity: 0.8;
+}
+
 @media (max-width: 900px) {
     .app-header__inner {
         grid-template-columns: 1fr;

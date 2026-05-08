@@ -28,8 +28,8 @@
             <section class="sell-section">
                 <h2 class="sell-label">商品画像</h2>
                 <div class="image-box">
-                    <input id="image" name="image" type="file" class="file-input" accept="image/*">
-                    <label for="image" class="image-select-btn">画像を選択する</label>
+                    <input name="image" type="file" class="file-input" accept="image/*">
+                    <label for="image" class="image-select-btn" onclick="document.querySelector('input[name=image]').click()" style="cursor: pointer;">画像を選択する</label>
                 </div>
             </section>
 

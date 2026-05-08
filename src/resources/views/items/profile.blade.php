@@ -21,7 +21,7 @@
             : asset('images/default-profile.png');
             @endphp
             <img src="{{ $profileImageSrc }}" alt="プロフィール画像" class="profile-image">
-            <button type="button" class="image-select-button" onclick="document.getElementById('profile-image-input').click()">
+            <button type="button" class="image-select-button" onclick="document.querySelector('input[name=profile_image]').click()">
                 画像を選択する
             </button>
         </div>
@@ -31,7 +31,7 @@
             @csrf
 
             <!-- プロフィール画像入力（非表示） -->
-            <input type="file" id="profile-image-input" name="profile_image" accept="image/*" style="display: none;">
+            <input type="file" name="profile_image" accept="image/*" style="display: none;">
 
             <!-- ユーザー名 -->
             <div class="form-group">

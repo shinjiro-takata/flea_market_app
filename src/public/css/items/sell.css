@@ -145,6 +145,31 @@
     height: 64px;
 }
 
+.chip-label {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.chip-label input[type="checkbox"] {
+    display: none;
+}
+
+.chip-label .chip {
+    display: inline-block;
+    border: 1px solid #ff5a5f;
+    border-radius: 18px;
+    color: #ff5a5f;
+    background: #fff;
+    padding: 4px 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.chip-label input[type="checkbox"]:checked + .chip {
+    background: #ff5a5f;
+    color: #fff;
+}
+
 @media (max-width: 900px) {
     .sell-title {
         font-size: 32px;

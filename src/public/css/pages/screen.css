@@ -1,4 +1,4 @@
-body {
+.screen-body {
     margin: 0;
     font-family: sans-serif;
     background: #f5f5f5;
@@ -18,7 +18,7 @@ body {
     padding: 24px;
 }
 
-h1 {
+.page-title {
     margin-top: 0;
     font-size: 28px;
 }
@@ -36,10 +36,10 @@ h1 {
     border-radius: 6px;
 }
 
-ul {
+.list-group {
     padding-left: 20px;
 }
 
-a {
+.screen-link {
     color: #0f3b82;
 }

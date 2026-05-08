@@ -232,6 +232,58 @@ body {
     font-size: 13px;
 }
 
+.brand-name {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.comment-user {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--ink);
+}
+
+.comment-content {
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.comment-form {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.comment-form button {
+    width: 100%;
+    padding: 12px;
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.comment-form button:hover {
+    background-color: #ff5252;
+}
+
 .actions {
     margin-top: 22px;
 }
