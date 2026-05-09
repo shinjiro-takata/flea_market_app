@@ -10,76 +10,112 @@ body {
 }
 
 .app-header {
+    width: 1512px;
+    height: 80px;
+    margin: 0 auto;
     background: #000;
-    border-bottom: 1px solid #222;
 }
 
 .app-header__inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 10px 18px;
-    display: grid;
-    grid-template-columns: 190px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 16px;
-}
+    width: 1512px;
+    height: 80px;
+    margin: 0 ;
+    display: flex;
+    }
 
 .app-header__logo {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
-    font-size: 34px;
-    font-weight: 800;
+    width: 370px;
+    height: 36px;
     letter-spacing: 0.4px;
     line-height: 1;
     display: block;
-    height: 50px;
+    margin: 22px 0 0 40px;
 }
 
 .app-header__logo img {
     height: 100%;
-    width: auto;
+    width: 100%;
     object-fit: contain;
 }
 
-.app-header__search input {
-    width: 100%;
-    height: 40px;
-    border: 1px solid #ccc;
+.app-header__search {
+    width: 563px;
+    height: 80px;
+    margin-left: 65px;
+    display: flex;
+    align-items: center;
+}
+
+.app-header__search__input {
+    width: 500px;
+    height: 50px;
+    margin: 15px 31px;
     border-radius: 5px;
-    padding: 0 14px;
-    font-size: 16px;
+    border: 1px solid #ccc;
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 24px;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #000000;
 }
 
 .app-header__nav {
     display: flex;
-    align-items: center;
-    gap: 18px;
+    width: 463px;
+    height: 80px;
+    margin-left: 11px;
+    padding-left: 37px;
 }
 
-.app-header__nav a {
+.app-header__nav__link,
+.logout-button {
+    width: 135px;
+    height: 47px;
+    margin: 20px 9px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 24px;
+    letter-spacing: 0%;
     text-decoration: none;
-    font-size: 18px;
+}
+
+.app-header__nav__link {
+    text-align: center;
 }
 
 .app-header__sell {
+    width: 100px;
+    height: 50px;
+    margin: 18px 0 0 2px;
     border: 1px solid #fff;
     border-radius: 4px;
-    padding: 7px 14px;
-    color: #000 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
     background: #fff;
-    font-weight: 700;
+    text-decoration: none;
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 24px;
+    letter-spacing: 0%;
+    text-align: center;
 }
-
 
 .logout-button {
     border: none;
     background: none;
-    color: #fff;
     cursor: pointer;
-    font-size: 18px;
-    padding: 0;
-    text-decoration: none;
     transition: opacity 0.3s ease;
 }
 
@@ -100,9 +136,5 @@ body {
         justify-content: flex-start;
         gap: 12px;
         flex-wrap: wrap;
-    }
-
-    .app-header__nav a {
-        font-size: 16px;
     }
 }

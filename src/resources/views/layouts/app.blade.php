@@ -20,6 +20,7 @@
             <form action="{{ route('items.index') }}" method="get" class="app-header__search" role="search">
                 <input
                     type="text"
+                    class="app-header__search__input"
                     name="q"
                     value="{{ request('q') }}"
                     placeholder="なにをお探しですか？"
@@ -33,9 +34,9 @@
                     <button type="submit" class="logout-button">ログアウト</button>
                 </form>
                 @else
-                <a href="{{ route('login') }}">ログイン</a>
+                <a href="{{ route('login') }}" class="app-header__nav__link">ログイン</a>
                 @endif
-                <a href="{{ route('items.mypage') }}">マイページ</a>
+                <a href="{{ route('items.mypage') }}" class="app-header__nav__link">マイページ</a>
                 <a href="{{ route('items.sell') }}" class="app-header__sell">出品</a>
             </nav>
         </div>
