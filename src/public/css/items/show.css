@@ -19,7 +19,7 @@ body {
 }
 
 .container {
-    max-width: 1120px;
+    width: 1512px;
     margin: 0 auto;
     padding: 32px 24px 48px;
 }
@@ -27,7 +27,10 @@ body {
 .content {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: 28px;
+    gap: 0;
+    width: 1380px;
+    height: 1702px;
+    margin: 175px auto 0;
 }
 
 .gallery {
@@ -38,7 +41,7 @@ body {
 .gallery__item {
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: 4px;
     overflow: hidden;
 }
 

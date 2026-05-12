@@ -39,6 +39,10 @@
                 @else
                 <span>画像なし</span>
                 @endif
+
+                @if ($item->status === 'sold')
+                <span class="card__badge">Sold</span>
+                @endif
             </div>
             <div class="card__body">
                 <h2 class="card__title">{{ $item->name }}</h2>

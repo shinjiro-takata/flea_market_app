@@ -84,7 +84,19 @@ body {
     align-items: center;
     justify-content: center;
     color: #999;
-    font-size: 14px;
+    border-radius: 4px;
+}
+
+.card__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
 }
 
 .card__image img {
@@ -96,18 +108,14 @@ body {
 
 .card__body {
     padding: 0;
+    height: 30px;
 }
 
 .card__title {
     margin: 0;
-    font-family: Inter;
-        font-weight: 400;
-        font-style: Regular;
-        font-size: 25px;
-        leading-trim: NONE;
-        line-height: 100%;
-        letter-spacing: 0%;
-        vertical-align: middle;;
+    height: 30px;
+    font-size: 25px;
+    line-height: 1.4;
 }
 
 .empty {
