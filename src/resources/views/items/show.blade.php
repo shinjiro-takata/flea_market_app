@@ -72,7 +72,7 @@
 
             <div class="description-box">
                 <h2>商品説明</h2>
-                <p>{{ $item->description }}</p>
+                <p class="description-box__text">{{ $item->description }}</p>
             </div>
 
             <div class="info-box">
@@ -117,7 +117,7 @@
                 @error('comment')
                 <div class="error-message">{{ $message }}</div>
                 @enderror
-                <button type="submit">コメントを送信する</button>
+                <button type="submit" class="comment-form__button">コメントを送信する</button>
             </form>
             @endif
         </section>

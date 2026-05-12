@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="profile-container">
-    <h1>プロフィール設定</h1>
+    <h1 class="profile-container__title">プロフィール設定</h1>
 
     <div class="profile-card">
         <!-- プロフィール画像セクション -->

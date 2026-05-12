@@ -50,7 +50,7 @@
             <div class="items-grid">
                 @foreach($sellItems as $item)
                 <div class="item-card">
-                    <a href="{{ route('items.show', $item->id) }}">
+                    <a href="{{ route('items.show', $item->id) }}" class="item-card__link">
                         @if($item->images->isNotEmpty())
                         @php
                         $imageSrc = \Illuminate\Support\Str::startsWith($item->images->first()->image_path, ['http://', 'https://'])
@@ -80,7 +80,7 @@
             <div class="items-grid">
                 @foreach($buyItems as $order)
                 <div class="item-card">
-                    <a href="{{ route('items.show', $order->item->id) }}">
+                    <a href="{{ route('items.show', $order->item->id) }}" class="item-card__link">
                         @if($order->item->images->isNotEmpty())
                         @php
                         $imageSrc = \Illuminate\Support\Str::startsWith($order->item->images->first()->image_path, ['http://', 'https://'])

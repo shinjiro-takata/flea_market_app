@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="purchase-container">
-    <h1>購入確認</h1>
+    <h1 class="purchase-container__title">購入確認</h1>
 
     <div class="purchase-card">
         <!-- 商品情報セクション -->
@@ -29,8 +29,8 @@
 
                 <div class="item-details">
                     <h3>{{ $item->name }}</h3>
-                    <p class="item-brand">ブランド: {{ $item->brand_name ?? '未設定' }}</p>
-                    <p class="item-price">￥{{ number_format($item->price) }}</p>
+                    <p class="item-details__text item-brand">ブランド: {{ $item->brand_name ?? '未設定' }}</p>
+                    <p class="item-details__text item-price">￥{{ number_format($item->price) }}</p>
                 </div>
             </div>
         </div>
@@ -41,8 +41,8 @@
 
             @if($address)
             <div class="address-box">
-                <p>〒{{ $address->postal_code }}</p>
-                <p>{{ $address->prefecture }} {{ $address->municipality }} {{ $address->street_address }}</p>
+                <p class="address-box__text">〒{{ $address->postal_code }}</p>
+                <p class="address-box__text">{{ $address->prefecture }} {{ $address->municipality }} {{ $address->street_address }}</p>
             </div>
             <a href="{{ route('purchase.address', $item->id) }}" class="address-link">
                 配送先を変更する
@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="subtotal-box">
-                    <p>小計: <strong id="subtotal">￥{{ number_format($item->price) }}</strong></p>
+                    <p class="subtotal-box__text">\u5c0f\u8a08: <strong id="subtotal">￥{{ number_format($item->price) }}</strong></p>
                 </div>
             </div>
 

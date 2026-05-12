@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="address-change-container">
-    <h1>住所の変更</h1>
+    <h1 class="address-change-container__title">住所の変更</h1>
 
     <div class="address-form-card">
         <form action="{{ route('purchase.address.update', $item->id) }}" method="POST" class="address-form">
