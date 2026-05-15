@@ -35,7 +35,7 @@
     </div>
 
     <div class="auth-form__group">
-        <label for="password_confirmation" class="auth-form__label">パスワード確認</label>
+        <label for="password_confirmation" class="auth-form__label">確認用パスワード</label>
         <input type="password" class="auth-form__input @error('password_confirmation') auth-form__input--error @enderror" id="password_confirmation" name="password_confirmation" required>
         @error('password_confirmation')
         <span class="auth-form__error-message">{{ $message }}</span>
@@ -46,6 +46,6 @@
 </form>
 
 <p class="auth-form__link-text">
-    ログインは<a href="{{ route('login') }}" class="auth-form__link">こちら</a>
+    <a href="{{ route('login') }}" class="auth-form__link">ログインはこちら</a>
 </p>
 @endsection
