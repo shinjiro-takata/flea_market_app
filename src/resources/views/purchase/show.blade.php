@@ -60,7 +60,7 @@
                 @if($address)
                 <div class="address-box">
                     <p class="address-box__text">〒{{ $address->postal_code }}</p>
-                    <p class="address-box__text">{{ $address->prefecture }} {{ $address->municipality }} {{ $address->street_address }}</p>
+                    <p class="address-box__text">{{ $address->prefecture }} {{ $address->street_address }}</p>
                 </div>
                 @else
                 <p class="address-empty">配送先が登録されていません</p>

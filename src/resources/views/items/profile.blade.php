@@ -55,7 +55,7 @@
                     name="postal_code"
                     class="form-input"
                     placeholder="例: 123-4567"
-                    value="{{ old('postal_code', $address->postal_code ?? '') }}"
+                    value="{{ old('postal_code', $address?->postal_code ?? '') }}"
                     required>
                 @error('postal_code')
                 <div class="error-message">{{ $message }}</div>
@@ -70,39 +70,24 @@
                     id="prefecture"
                     name="prefecture"
                     class="form-input"
-                    value="{{ old('prefecture', $address->prefecture ?? '') }}"
+                    placeholder="例: 東京都渋谷区 1-2-3"
+                    value="{{ old('prefecture', $address?->prefecture ?? '') }}"
                     required>
                 @error('prefecture')
                 <div class="error-message">{{ $message }}</div>
                 @enderror
             </div>
 
-            <!-- 市区町村 -->
+            <!-- 建物名 -->
             <div class="form-group">
-                <label for="municipality" class="form-label">市区町村</label>
-                <input
-                    type="text"
-                    id="municipality"
-                    name="municipality"
-                    class="form-input"
-                    value="{{ old('municipality', $address->municipality ?? '') }}"
-                    required>
-                @error('municipality')
-                <div class="error-message">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <!-- 街道名 -->
-            <div class="form-group">
-                <label for="street_address" class="form-label">街道名</label>
+                <label for="street_address" class="form-label">建物名</label>
                 <input
                     type="text"
                     id="street_address"
                     name="street_address"
                     class="form-input"
                     placeholder="例: 1-2-3 ビル名 101"
-                    value="{{ old('street_address', $address->street_address ?? '') }}"
-                    required>
+                    value="{{ old('street_address', $address?->street_address ?? '') }}">
                 @error('street_address')
                 <div class="error-message">{{ $message }}</div>
                 @enderror

@@ -22,6 +22,7 @@ class ScreenController extends Controller
         $query = Item::query()
             ->with(['seller', 'images'])
             ->withCount('likes')
+            ->where('status', 'on_sale')
             ->latest();
 
         // 自分が出品した商品は除外
@@ -119,7 +120,6 @@ class ScreenController extends Controller
             $address->update([
                 'postal_code' => $request->input('postal_code'),
                 'prefecture' => $request->input('prefecture'),
-                'municipality' => $request->input('municipality'),
                 'street_address' => $request->input('street_address'),
             ]);
         } else {
@@ -127,7 +127,6 @@ class ScreenController extends Controller
                 'user_id' => $user->id,
                 'postal_code' => $request->input('postal_code'),
                 'prefecture' => $request->input('prefecture'),
-                'municipality' => $request->input('municipality'),
                 'street_address' => $request->input('street_address'),
             ]);
         }
@@ -218,7 +217,6 @@ class ScreenController extends Controller
             $address->update([
                 'postal_code' => $request->input('postal_code'),
                 'prefecture' => $request->input('prefecture'),
-                'municipality' => $request->input('municipality'),
                 'street_address' => $request->input('street_address'),
             ]);
         } else {
@@ -226,7 +224,6 @@ class ScreenController extends Controller
                 'user_id' => $user->id,
                 'postal_code' => $request->input('postal_code'),
                 'prefecture' => $request->input('prefecture'),
-                'municipality' => $request->input('municipality'),
                 'street_address' => $request->input('street_address'),
             ]);
         }

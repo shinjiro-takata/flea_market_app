@@ -19,11 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ScreenController::class, 'index'])->name('items.index');
 Route::get('/item/{item_id}', [ScreenController::class, 'showItem'])->name('items.show');
-Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
-Route::get('/purchase/address/{item_id}', [ScreenController::class, 'purchaseAddress'])->name('purchase.address');
-Route::post('/purchase/address/{item_id}', [ScreenController::class, 'updatePurchaseAddress'])->name('purchase.address.update');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
+    Route::post('/purchase/{item_id}/payment', [PurchaseController::class, 'setPayment'])->name('purchase.setPayment');
+    Route::get('/purchase/address/{item_id}', [ScreenController::class, 'purchaseAddress'])->name('purchase.address');
+    Route::post('/purchase/address/{item_id}', [ScreenController::class, 'updatePurchaseAddress'])->name('purchase.address.update');
     Route::get('/sell', [ScreenController::class, 'sell'])->name('items.sell');
     Route::post('/sell', [ScreenController::class, 'exhibition'])->name('exhibition.store');
     Route::get('/mypage', [ScreenController::class, 'mypage'])->name('items.mypage');

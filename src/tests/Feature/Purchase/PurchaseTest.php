@@ -39,9 +39,8 @@ class PurchaseTest extends TestCase
         $address = Address::create([
             'user_id' => $buyer->id,
             'postal_code' => '100-0001',
-            'prefecture' => '東京都',
-            'municipality' => '千代田区',
-            'street_address' => '丸の内1-1-1',
+            'prefecture' => '東京都千代田区 丸の内1-1-1',
+            'street_address' => '',
         ]);
 
         // ログイン
@@ -99,9 +98,8 @@ class PurchaseTest extends TestCase
         $address = Address::create([
             'user_id' => $buyer->id,
             'postal_code' => '100-0001',
-            'prefecture' => '東京都',
-            'municipality' => '千代田区',
-            'street_address' => '丸の内1-1-1',
+            'prefecture' => '東京都千代田区 丸の内1-1-1',
+            'street_address' => '',
         ]);
 
         // 購入記録を作成
@@ -149,9 +147,8 @@ class PurchaseTest extends TestCase
         $address = Address::create([
             'user_id' => $buyer->id,
             'postal_code' => '100-0001',
-            'prefecture' => '東京都',
-            'municipality' => '千代田区',
-            'street_address' => '丸の内1-1-1',
+            'prefecture' => '東京都千代田区 丸の内1-1-1',
+            'street_address' => '',
         ]);
 
         // 購入記録を作成

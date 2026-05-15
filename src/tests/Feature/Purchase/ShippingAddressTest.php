@@ -44,9 +44,8 @@ class ShippingAddressTest extends TestCase
         // 送付先住所変更画面で住所を登録
         $response = $this->post(route('purchase.address.update', $item->id), [
             'postal_code' => '150-0001',
-            'prefecture' => '東京都',
-            'municipality' => '渋谷区',
-            'street_address' => '神宮前1-1-1',
+            'prefecture' => '東京都渋谷区 神宮前1-1-1',
+            'street_address' => '',
         ]);
 
         // 購入画面へリダイレクト
@@ -56,9 +55,7 @@ class ShippingAddressTest extends TestCase
         $this->assertDatabaseHas('addresses', [
             'user_id' => $user->id,
             'postal_code' => '150-0001',
-            'prefecture' => '東京都',
-            'municipality' => '渋谷区',
-            'street_address' => '神宮前1-1-1',
+            'prefecture' => '東京都渋谷区 神宮前1-1-1',
         ]);
 
         // 商品購入画面を再度開く
@@ -69,9 +66,7 @@ class ShippingAddressTest extends TestCase
 
         // 登録した住所が購入画面に反映されていることを確認
         $response->assertSee('150-0001');
-        $response->assertSee('東京都');
-        $response->assertSee('渋谷区');
-        $response->assertSee('神宮前1-1-1');
+        $response->assertSee('東京都渋谷区 神宮前1-1-1');
     }
 
     /**
@@ -101,9 +96,8 @@ class ShippingAddressTest extends TestCase
         // 送付先住所変更画面で住所を登録
         $response = $this->post(route('purchase.address.update', $item->id), [
             'postal_code' => '100-0001',
-            'prefecture' => '東京都',
-            'municipality' => '千代田区',
-            'street_address' => '丸の内1-1-1',
+            'prefecture' => '東京都千代田区 丸の内1-1-1',
+            'street_address' => '',
         ]);
 
         // リダイレクトを確認
@@ -139,8 +133,6 @@ class ShippingAddressTest extends TestCase
         // アドレス情報が正しいことを確認
         $linkedAddress = $order->address;
         $this->assertEquals('100-0001', $linkedAddress->postal_code);
-        $this->assertEquals('東京都', $linkedAddress->prefecture);
-        $this->assertEquals('千代田区', $linkedAddress->municipality);
-        $this->assertEquals('丸の内1-1-1', $linkedAddress->street_address);
+        $this->assertEquals('東京都千代田区 丸の内1-1-1', $linkedAddress->prefecture);
     }
 }

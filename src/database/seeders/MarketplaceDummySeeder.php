@@ -172,9 +172,8 @@ class MarketplaceDummySeeder extends Seeder
         Address::create([
             'user_id' => $seller->id,
             'postal_code' => '100-0001',
-            'prefecture' => '東京都',
-            'municipality' => '千代田区',
-            'street_address' => '丸の内1-1-1',
+            'prefecture' => '東京都千代田区 丸の内1-1-1',
+            'street_address' => '',
         ]);
     }
 }

@@ -13,7 +13,6 @@ class Address extends Model
         'user_id',
         'postal_code',
         'prefecture',
-        'municipality',
         'street_address',
     ];
 
