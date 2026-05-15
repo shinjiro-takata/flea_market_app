@@ -8,75 +8,79 @@
 
 @section('content')
 <div class="purchase-container">
-    <h1 class="purchase-container__title">購入確認</h1>
 
     <div class="purchase-card">
-        <!-- 商品情報セクション -->
-        <div class="purchase-section">
-            <h2>商品情報</h2>
+        <!-- 左側：商品情報、配送先、支払い方法 -->
+        <div class="purchase-main">
+            <!-- 商品情報セクション -->
+            <div class="purchase-section">
 
-            <div class="item-info-row">
-                @if($item->images->isNotEmpty())
-                <div class="item-image-container">
-                    @php
-                    $imageSrc = \Illuminate\Support\Str::startsWith($item->images->first()->image_path, ['http://', 'https://'])
-                    ? $item->images->first()->image_path
-                    : asset('storage/' . $item->images->first()->image_path);
-                    @endphp
-                    <img src="{{ $imageSrc }}" alt="{{ $item->name }}">
-                </div>
-                @endif
+                <div class="item-info-row">
+                    @if($item->images->isNotEmpty())
+                    <div class="item-image-container">
+                        @php
+                        $imageSrc = \Illuminate\Support\Str::startsWith($item->images->first()->image_path, ['http://', 'https://'])
+                        ? $item->images->first()->image_path
+                        : asset('storage/' . $item->images->first()->image_path);
+                        @endphp
+                        <img src="{{ $imageSrc }}" alt="{{ $item->name }}">
+                    </div>
+                    @endif
 
-                <div class="item-details">
-                    <h3>{{ $item->name }}</h3>
-                    <p class="item-details__text item-brand">ブランド: {{ $item->brand_name ?? '未設定' }}</p>
-                    <p class="item-details__text item-price">￥{{ number_format($item->price) }}</p>
+                    <div class="item-details">
+                        <h3>{{ $item->name }}</h3>
+                        <p class="item-details__text item-price">￥{{ number_format($item->price) }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- 配送先セクション -->
-        <div class="purchase-section">
-            <h2>配送先</h2>
-
-            @if($address)
-            <div class="address-box">
-                <p class="address-box__text">〒{{ $address->postal_code }}</p>
-                <p class="address-box__text">{{ $address->prefecture }} {{ $address->municipality }} {{ $address->street_address }}</p>
-            </div>
-            <a href="{{ route('purchase.address', $item->id) }}" class="address-link">
-                配送先を変更する
-            </a>
-            @else
-            <p class="address-empty">配送先が登録されていません</p>
-            <a href="{{ route('purchase.address', $item->id) }}" class="address-link">
-                配送先を追加する
-            </a>
-            @endif
-        </div>
-
-        <!-- 購入フォーム -->
-        <form action="{{ route('purchase.store', $item->id) }}" method="POST" id="purchase-form">
-            @csrf
-            <input type="hidden" name="address_id" value="{{ $address->id ?? '' }}">
 
             <!-- 支払い方法セクション -->
             <div class="purchase-section">
                 <h2>支払い方法</h2>
 
-                <div class="payment-method-options">
-                    <label class="payment-option">
-                        <input type="radio" name="payment_method" value="credit_card" checked>
-                        <span>クレジットカード</span>
-                    </label>
-                    <label class="payment-option">
-                        <input type="radio" name="payment_method" value="convenience_store">
-                        <span>コンビニ支払い</span>
-                    </label>
+                <form action="{{ route('purchase.setPayment', $item->id) }}" method="POST" class="payment-form-inline">
+                    @csrf
+                    <select class="payment-select" name="payment_method">
+                        <option value="convenience_store" {{ $paymentMethod === 'convenience_store' ? 'selected' : '' }}>コンビニ支払い</option>
+                        <option value="credit_card" {{ $paymentMethod === 'credit_card' ? 'selected' : '' }}>カード支払い</option>
+                    </select>
+                    <button type="submit" class="payment-button">選択</button>
+                </form>
+            </div>
+
+            <!-- 配送先セクション -->
+            <div class="purchase-section">
+                <div class="purchase-section__header">
+                    <h2>配送先</h2>
+                    <a href="{{ route('purchase.address', $item->id) }}" class="address-link">
+                        変更する
+                    </a>
                 </div>
 
-                <div class="subtotal-box">
-                    <p class="subtotal-box__text">\u5c0f\u8a08: <strong id="subtotal">￥{{ number_format($item->price) }}</strong></p>
+                @if($address)
+                <div class="address-box">
+                    <p class="address-box__text">〒{{ $address->postal_code }}</p>
+                    <p class="address-box__text">{{ $address->prefecture }} {{ $address->municipality }} {{ $address->street_address }}</p>
+                </div>
+                @else
+                <p class="address-empty">配送先が登録されていません</p>
+                @endif
+            </div>
+        </div>
+
+        <!-- 右側：金額詳細と購入ボタン -->
+        <form action="{{ route('purchase.store', $item->id) }}" method="POST" id="purchase-form" class="purchase-sidebar">
+            @csrf
+            <input type="hidden" name="address_id" value="{{ $address->id ?? '' }}">
+
+            <div class="price-summary">
+                <div class="price-summary__row">
+                    <span class="price-summary__label">商品代金</span>
+                    <span class="price-summary__value">￥{{ number_format($item->price) }}</span>
+                </div>
+                <div class="price-summary__row">
+                    <span class="price-summary__label">支払い方法</span>
+                    <span class="price-summary__value">{{ $paymentMethod === 'credit_card' ? 'カード支払い' : 'コンビニ払い' }}</span>
                 </div>
             </div>
 
@@ -86,4 +90,5 @@
         </form>
     </div>
 </div>
+
 @endsection

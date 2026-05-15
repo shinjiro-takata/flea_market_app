@@ -21,10 +21,21 @@ class PurchaseController extends Controller
             return redirect()->route('mypage.profile')->with('error', '配送先を登録してください');
         }
 
+        $paymentMethod = session('payment_method', 'convenience_store');
+
         return view('purchase.show', [
             'item' => $item,
             'address' => $address,
+            'paymentMethod' => $paymentMethod,
         ]);
+    }
+
+    public function setPayment(Request $request, $item_id)
+    {
+        $paymentMethod = $request->input('payment_method', 'convenience_store');
+        session(['payment_method' => $paymentMethod]);
+
+        return redirect()->route('purchase.show', $item_id);
     }
 
     public function store(Request $request, $item_id)
