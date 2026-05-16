@@ -12,11 +12,14 @@
     <div class="profile-section">
         <div class="profile-header">
             @php
+            $defaultProfileImageSrc = asset('images/default-profile.svg');
             $profileImageSrc = $user->profile_image
             ? (\Illuminate\Support\Str::startsWith($user->profile_image, ['http://', 'https://'])
             ? $user->profile_image
-            : asset('storage/' . $user->profile_image))
-            : asset('images/default-profile.png');
+            : (\Illuminate\Support\Facades\Storage::disk('public')->exists($user->profile_image)
+            ? asset('storage/' . $user->profile_image)
+            : $defaultProfileImageSrc))
+            : $defaultProfileImageSrc;
             @endphp
             <img src="{{ $profileImageSrc }}" alt="{{ $user->name }}" class="profile-image">
             <div class="profile-info">
