@@ -24,7 +24,6 @@
             <img src="{{ $profileImageSrc }}" alt="{{ $user->name }}" class="profile-image">
             <div class="profile-info">
                 <h2>{{ $user->name }}</h2>
-                <p class="profile-email">{{ $user->email }}</p>
             </div>
             <a href="{{ route('mypage.profile') }}" class="edit-profile-button">
                 プロフィールを編集
@@ -66,7 +65,6 @@
                         @endif
                         <div class="item-info">
                             <h3>{{ $item->name }}</h3>
-                            <p class="item-price">¥{{ number_format($item->price) }}</p>
                         </div>
                     </a>
                 </div>
@@ -96,7 +94,6 @@
                         @endif
                         <div class="item-info">
                             <h3>{{ $order->item->name }}</h3>
-                            <p class="item-price">¥{{ number_format($order->item->price) }}</p>
                         </div>
                     </a>
                 </div>

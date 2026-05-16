@@ -1,45 +1,36 @@
 .mypage-container {
-    max-width: 1200px;
+    max-width: 1512px;
     margin: 0 auto;
-    padding: 20px;
+    padding-top: 78px;
 }
 
 .profile-section {
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 0 299px 77px;
 }
 
 .profile-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    width: 1017px;
+    height: 150px;
 }
 
 .profile-image {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #ddd;
     flex-shrink: 0;
 }
 
 .profile-info {
-    flex: 1;
+    margin: 0 250px 0 57px;
 }
 
 .profile-info h2 {
-    margin: 0 0 5px 0;
-    font-size: 24px;
-}
-
-.profile-email {
-    color: #666;
-    margin: 0;
+    width: 250px;
+    height: 65px;
+    font-size: 36px;
 }
 
 .edit-profile-button {
@@ -50,8 +41,8 @@
     border-radius: 20px;
     color: #FF6B6B;
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
     flex-shrink: 0;
@@ -63,24 +54,23 @@
 }
 
 .tabs-section {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 1512px;
     overflow: hidden;
 }
 
 .tabs {
     display: flex;
-    border-bottom: 1px solid #ddd;
+    gap: 52px;
+        border-bottom: 2px solid #5f5f5f;
 }
 
 .tab-button {
-    flex: 1;
-    padding: 15px;
+    width: 155px;
+    height: 40px;
+    margin-left: 129px;
     background: none;
     cursor: pointer;
-    font-size: 16px;
-    border-bottom: 3px solid transparent;
+    font-size: 24px;
     transition: all 0.3s;
     text-decoration: none;
     color: inherit;
@@ -93,8 +83,8 @@
 }
 
 .tab-button.active {
-    border-bottom-color: #3498db;
-    color: #3498db;
+    border-bottom-color: #FF0000;
+    color: #FF0000;
     font-weight: bold;
 }
 
@@ -109,54 +99,59 @@
 
 .items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(4, 290px);
+    column-gap: 71.5px;
+    row-gap: 76.61px;
+    justify-content: center;
 }
 
 .item-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.item-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 290px;
+    min-height: 320px;
 }
 
 .item-card__link {
     display: block;
     text-decoration: none;
     color: inherit;
+    width: 290px;
+    min-height: 320px;
+    overflow: hidden;
 }
 
 .item-image {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
+    display: block;
 }
 
 .item-info {
-    padding: 15px;
+    padding: 0;
 }
 
 .item-info h3 {
-    margin: 0 0 10px 0;
-    font-size: 16px;
+    margin: 0;
+    font-size: 25px;
     line-height: 1.4;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 
-.item-price {
-    margin: 0;
-    font-size: 18px;
-    font-weight: bold;
-    color: #e74c3c;
+@media (max-width: 960px) {
+    .items-grid {
+        grid-template-columns: repeat(2, 290px);
+    }
+}
+
+@media (max-width: 640px) {
+    .items-grid {
+        grid-template-columns: 290px;
+    }
 }
 
 .empty-message {
