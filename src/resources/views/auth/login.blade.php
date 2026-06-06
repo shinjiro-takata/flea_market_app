@@ -11,18 +11,13 @@
 <form method="POST" action="{{ route('login') }}" class="auth-form">
     @csrf
 
-    @if ($errors->has('email') && $errors->first('email') === 'These credentials do not match our records.')
-    <div class="auth-form__error">ログイン情報が登録されていません</div>
-    @endif
+    @error('email')
+    <div class="auth-form__error">{{ $message }}</div>
+    @enderror
 
     <div class="auth-form__group">
         <label for="email" class="auth-form__label">メールアドレス</label>
         <input type="email" class="auth-form__input @error('email') auth-form__input--error @enderror" id="email" name="email" value="{{ old('email') }}" required>
-        @error('email')
-        @if ($message !== 'These credentials do not match our records.')
-        <span class="auth-form__error-message">{{ $message }}</span>
-        @endif
-        @enderror
     </div>
 
     <div class="auth-form__group">

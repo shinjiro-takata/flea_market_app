@@ -27,8 +27,12 @@ class ItemDetailTest extends TestCase
      */
     public function test_all_required_item_information_is_displayed()
     {
-        $seller = User::factory()->create();
-        $commenter = User::factory()->create();
+        $seller = User::factory()->create([
+            'name' => '出品者テストユーザー',
+        ]);
+        $commenter = User::factory()->create([
+            'name' => 'コメントユーザー',
+        ]);
 
         // 商品を作成
         $item = Item::factory()->create([
@@ -79,34 +83,31 @@ class ItemDetailTest extends TestCase
     public function test_multiple_categories_are_displayed()
     {
         $seller = User::factory()->create();
+        $displayCategories = collect([
+            Category::factory()->create(['name' => '表示カテゴリA']),
+            Category::factory()->create(['name' => '表示カテゴリB']),
+        ]);
 
-        // カテゴリを取得（新しいカテゴリを作成）
-        $category1 = Category::factory()->create(['name' => 'カテゴリA']);
-        $category2 = Category::factory()->create(['name' => 'カテゴリB']);
-        $category3 = Category::factory()->create(['name' => 'カテゴリC']);
-
-        // 商品を作成
+        // 商品を作成（Factory で自動的に複数カテゴリが attach される）
         $item = Item::factory()->create([
             'seller_id' => $seller->id,
             'name' => 'マルチカテゴリ商品',
             'status' => 'on_sale',
         ]);
 
-        // 商品に複数のカテゴリを関連付け
-        $item->categories()->attach([
-            $category1->id,
-            $category2->id,
-            $category3->id,
-        ]);
+        $item->categories()->sync($displayCategories->pluck('id'));
+
+        // 商品に関連付けられたカテゴリが存在することを確認
+        $this->assertGreaterThanOrEqual(2, $item->categories()->count());
 
         $response = $this->get("/item/{$item->id}");
 
         $response->assertStatus(200);
 
         // すべてのカテゴリが表示されているか確認
-        $response->assertSee($category1->name);
-        $response->assertSee($category2->name);
-        $response->assertSee($category3->name);
+        foreach ($item->categories as $category) {
+            $response->assertSee($category->name);
+        }
     }
 
     /**

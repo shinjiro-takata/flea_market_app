@@ -8,12 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * 一括割り当て可能な属性
      *
      * @var array<int, string>
      */
@@ -25,7 +25,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * シリアライズから除外する属性
      *
      * @var array<int, string>
      */
@@ -35,13 +35,16 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * 属性の型キャスト
+     * email_verified_at: メール認証完了日時を DateTime として扱う
      *
      * @var array<string, string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // =============== リレーション ===============
 
     public function items()
     {
@@ -71,5 +74,24 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    // =============== アクセッサ ===============
+
+    /**
+     * プロフィール画像の表示用 URL を取得
+     * 外部URL、ローカルストレージ、デフォルト画像を自動判定
+     */
+    public function getProfileImageSrcAttribute(): string
+    {
+        if (!$this->profile_image) {
+            return asset('images/default-profile.svg');
+        }
+
+        if (\Illuminate\Support\Str::startsWith($this->profile_image, ['http://', 'https://'])) {
+            return $this->profile_image;
+        }
+
+        return asset('storage/' . $this->profile_image);
     }
 }

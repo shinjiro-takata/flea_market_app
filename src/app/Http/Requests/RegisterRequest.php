@@ -7,9 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class RegisterRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
+     * リクエストが認可されているか判定
      */
     public function authorize()
     {
@@ -17,9 +15,7 @@ class RegisterRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
+     * 適用するバリデーション規則
      */
     public function rules()
     {
@@ -30,12 +26,17 @@ class RegisterRequest extends FormRequest
         ];
     }
 
+    /**
+     * バリデーションエラーメッセージ
+     */
     public function messages()
     {
         return [
             'name.required' => 'お名前を入力してください',
+            'name.max' => 'お名前は20文字以内で入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスはメール形式で入力してください',
+            'email.unique' => 'このメールアドレスは既に登録されています',
             'password.required' => 'パスワードを入力してください',
             'password.min' => 'パスワードは8文字以上で入力してください',
             'password.confirmed' => 'パスワードと一致しません',

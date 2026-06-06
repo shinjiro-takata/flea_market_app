@@ -19,6 +19,7 @@ class LoginTest extends TestCase
             'password' => 'password123',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
         $this->assertGuest();
     }
@@ -32,6 +33,7 @@ class LoginTest extends TestCase
             'email' => 'test@example.com',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('password');
         $this->assertGuest();
     }
@@ -49,6 +51,7 @@ class LoginTest extends TestCase
         ]);
 
         $this->assertGuest();
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
     }
 
@@ -57,7 +60,7 @@ class LoginTest extends TestCase
      */
     public function test_login_succeeds_with_valid_credentials()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['email_verified_at' => now()]);
 
         $response = $this->post('/login', [
             'email' => $user->email,
@@ -65,5 +68,22 @@ class LoginTest extends TestCase
         ]);
 
         $this->assertAuthenticatedAs($user);
+        $response->assertRedirect(route('items.index'));
+    }
+
+    /**
+     * メール認証未完了の場合、メール認証誘導画面へ遷移する
+     */
+    public function test_login_redirects_to_verification_when_email_not_verified()
+    {
+        $user = User::factory()->create(['email_verified_at' => null]);
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertGuest();
+        $response->assertRedirect(route('verification.notice'));
     }
 }

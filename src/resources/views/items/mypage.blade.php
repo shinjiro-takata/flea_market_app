@@ -11,17 +11,7 @@
     <!-- プロフィール情報セクション -->
     <div class="profile-section">
         <div class="profile-header">
-            @php
-            $defaultProfileImageSrc = asset('images/default-profile.svg');
-            $profileImageSrc = $user->profile_image
-            ? (\Illuminate\Support\Str::startsWith($user->profile_image, ['http://', 'https://'])
-            ? $user->profile_image
-            : (\Illuminate\Support\Facades\Storage::disk('public')->exists($user->profile_image)
-            ? asset('storage/' . $user->profile_image)
-            : $defaultProfileImageSrc))
-            : $defaultProfileImageSrc;
-            @endphp
-            <img src="{{ $profileImageSrc }}" alt="{{ $user->name }}" class="profile-image">
+            <img src="{{ $user->profile_image_src }}" alt="{{ $user->name }}" class="profile-image">
             <div class="profile-info">
                 <h2>{{ $user->name }}</h2>
             </div>
@@ -53,16 +43,7 @@
                 @foreach($sellItems as $item)
                 <div class="item-card">
                     <a href="{{ route('items.show', $item->id) }}" class="item-card__link">
-                        @if($item->images->isNotEmpty())
-                        @php
-                        $imageSrc = \Illuminate\Support\Str::startsWith($item->images->first()->image_path, ['http://', 'https://'])
-                        ? $item->images->first()->image_path
-                        : asset('storage/' . $item->images->first()->image_path);
-                        @endphp
-                        <img src="{{ $imageSrc }}" alt="{{ $item->name }}" class="item-image">
-                        @else
-                        <img src="{{ asset('images/no-image.png') }}" alt="No Image" class="item-image">
-                        @endif
+                        <img src="{{ $item->first_image_src }}" alt="{{ $item->name }}" class="item-image">
                         <div class="item-info">
                             <h3>{{ $item->name }}</h3>
                         </div>
@@ -82,16 +63,7 @@
                 @foreach($buyItems as $order)
                 <div class="item-card">
                     <a href="{{ route('items.show', $order->item->id) }}" class="item-card__link">
-                        @if($order->item->images->isNotEmpty())
-                        @php
-                        $imageSrc = \Illuminate\Support\Str::startsWith($order->item->images->first()->image_path, ['http://', 'https://'])
-                        ? $order->item->images->first()->image_path
-                        : asset('storage/' . $order->item->images->first()->image_path);
-                        @endphp
-                        <img src="{{ $imageSrc }}" alt="{{ $order->item->name }}" class="item-image">
-                        @else
-                        <img src="{{ asset('images/no-image.png') }}" alt="No Image" class="item-image">
-                        @endif
+                        <img src="{{ $order->item->first_image_src }}" alt="{{ $order->item->name }}" class="item-image">
                         <div class="item-info">
                             <h3>{{ $order->item->name }}</h3>
                         </div>

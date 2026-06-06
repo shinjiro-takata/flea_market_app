@@ -32,12 +32,14 @@ class MylistTest extends TestCase
         // いいね対象の商品を作成
         $likedItem = Item::factory()->create([
             'seller_id' => $seller->id,
+            'name' => 'いいね対象商品A',
             'status' => 'on_sale',
         ]);
 
         // いいねしていない商品を作成
         $unlikedItem = Item::factory()->create([
             'seller_id' => $seller->id,
+            'name' => '非表示商品B',
             'status' => 'on_sale',
         ]);
 
@@ -70,6 +72,7 @@ class MylistTest extends TestCase
         // 購入済み商品を作成（いいね対象）
         $soldItem = Item::factory()->create([
             'seller_id' => $seller->id,
+            'name' => '売り切れマイリスト商品A',
             'status' => 'sold',
         ]);
 

@@ -54,7 +54,7 @@ class PaymentMethodTest extends TestCase
         $response->assertStatus(200);
 
         // 支払い方法のオプションが表示されていることを確認
-        $response->assertSee('クレジットカード');
+        $response->assertSee('カード支払い');
         $response->assertSee('コンビニ支払い');
 
         // ラジオボタンが表示されていることを確認
@@ -94,6 +94,11 @@ class PaymentMethodTest extends TestCase
         // ログイン
         $this->actingAs($user);
 
+        // 支払い方法を設定（セッションに保存）
+        $this->post(route('purchase.setPayment', $item->id), [
+            'payment_method' => 'credit_card',
+        ]);
+
         // Stripe セッション作成をモック
         $mockSession = \Mockery::mock('overload:Stripe\Checkout\Session');
         $mockSession->shouldReceive('create')
@@ -103,10 +108,9 @@ class PaymentMethodTest extends TestCase
             }))
             ->andReturn((object)['url' => 'https://checkout.stripe.com/pay/mock_session_id']);
 
-        // 購入処理を実行（クレジットカード支払い）
+        // 購入処理を実行
         $response = $this->post(route('purchase.store', $item->id), [
             'address_id' => $address->id,
-            'payment_method' => 'credit_card',
         ]);
 
         // Stripe へのリダイレクトを確認
@@ -145,6 +149,11 @@ class PaymentMethodTest extends TestCase
         // ログイン
         $this->actingAs($user);
 
+        // 支払い方法を設定（セッションに保存）
+        $this->post(route('purchase.setPayment', $item->id), [
+            'payment_method' => 'convenience_store',
+        ]);
+
         // Stripe セッション作成をモック
         $mockSession = \Mockery::mock('overload:Stripe\Checkout\Session');
         $mockSession->shouldReceive('create')
@@ -154,10 +163,9 @@ class PaymentMethodTest extends TestCase
             }))
             ->andReturn((object)['url' => 'https://checkout.stripe.com/pay/mock_session_id']);
 
-        // 購入処理を実行（コンビニ支払い）
+        // 購入処理を実行
         $response = $this->post(route('purchase.store', $item->id), [
             'address_id' => $address->id,
-            'payment_method' => 'convenience_store',
         ]);
 
         // Stripe へのリダイレクトを確認

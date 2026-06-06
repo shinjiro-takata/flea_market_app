@@ -13,26 +13,26 @@
     <div class="profile-card">
         <!-- プロフィール画像セクション -->
         <div class="profile-image-section">
-            @php
-            $defaultProfileImageSrc = asset('images/default-profile.svg');
-            $profileImageSrc = $user->profile_image
-            ? (\Illuminate\Support\Str::startsWith($user->profile_image, ['http://', 'https://'])
-            ? $user->profile_image
-            : (\Illuminate\Support\Facades\Storage::disk('public')->exists($user->profile_image)
-            ? asset('storage/' . $user->profile_image)
-            : $defaultProfileImageSrc))
-            : $defaultProfileImageSrc;
-            @endphp
-            <img src="{{ $profileImageSrc }}" alt="プロフィール画像" class="profile-image">
-            <label class="image-select-button">
-                画像を選択する
-                <input type="file" name="profile_image" accept="image/*" style="display: none;">
-            </label>
+            <img src="{{ $user->profile_image_src }}" alt="プロフィール画像" class="profile-image" id="profile-image-preview">
         </div>
 
         <!-- プロフィール編集フォーム -->
         <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="profile-form">
             @csrf
+
+            <!-- プロフィール画像 -->
+            <div class="form-group">
+                <label for="profile_image" class="form-label">プロフィール画像</label>
+                <input
+                    type="file"
+                    id="profile_image"
+                    name="profile_image"
+                    class="form-input"
+                    accept="image/*">
+                @error('profile_image')
+                <div class="error-message">{{ $message }}</div>
+                @enderror
+            </div>
 
             <!-- ユーザー名 -->
             <div class="form-group">

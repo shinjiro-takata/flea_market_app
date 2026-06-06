@@ -10,9 +10,7 @@ use App\Models\User;
 class AuthMiddlewareTest extends TestCase
 {
     /**
-     * A basic feature test example.
-     *
-     * @return void
+     * 未ログインユーザーは出品画面にアクセスできない
      */
     public function test_guest_cannot_access_sell_page()
     {
@@ -20,6 +18,9 @@ class AuthMiddlewareTest extends TestCase
         $response->assertRedirect('/login');
     }
 
+    /**
+     * ログイン済みユーザーは出品画面にアクセスできる
+     */
     public function test_authenticated_user_can_access_sell_page()
     {
         $user = User::factory()->create();

@@ -31,9 +31,32 @@ class ItemIndexTest extends TestCase
         $seller = User::factory()->create();
 
         // 複数の商品を作成
-        $items = Item::factory()->count(5)->create([
-            'seller_id' => $seller->id,
-            'status' => 'on_sale',
+        $items = collect([
+            Item::factory()->create([
+                'seller_id' => $seller->id,
+                'name' => '一覧表示商品A',
+                'status' => 'on_sale',
+            ]),
+            Item::factory()->create([
+                'seller_id' => $seller->id,
+                'name' => '一覧表示商品B',
+                'status' => 'on_sale',
+            ]),
+            Item::factory()->create([
+                'seller_id' => $seller->id,
+                'name' => '一覧表示商品C',
+                'status' => 'on_sale',
+            ]),
+            Item::factory()->create([
+                'seller_id' => $seller->id,
+                'name' => '一覧表示商品D',
+                'status' => 'on_sale',
+            ]),
+            Item::factory()->create([
+                'seller_id' => $seller->id,
+                'name' => '一覧表示商品E',
+                'status' => 'on_sale',
+            ]),
         ]);
 
         $response = $this->get('/');
@@ -57,6 +80,7 @@ class ItemIndexTest extends TestCase
         // 購入済み商品を作成
         $soldItem = Item::factory()->create([
             'seller_id' => $seller->id,
+            'name' => '売り切れ商品A',
             'status' => 'sold',
         ]);
 
@@ -77,6 +101,7 @@ class ItemIndexTest extends TestCase
         // ログインユーザーが出品した商品
         $ownItem = Item::factory()->create([
             'seller_id' => $user->id,
+            'name' => '自分の商品A',
             'status' => 'on_sale',
         ]);
 
@@ -84,6 +109,7 @@ class ItemIndexTest extends TestCase
         $otherSeller = User::factory()->create();
         $otherItem = Item::factory()->create([
             'seller_id' => $otherSeller->id,
+            'name' => '他人の商品B',
             'status' => 'on_sale',
         ]);
 
@@ -108,6 +134,7 @@ class ItemIndexTest extends TestCase
 
         $item = Item::factory()->create([
             'seller_id' => $seller->id,
+            'name' => 'ゲスト閲覧商品A',
             'status' => 'on_sale',
         ]);
 

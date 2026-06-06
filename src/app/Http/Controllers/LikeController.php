@@ -10,18 +10,14 @@ class LikeController extends Controller
 {
     public function toggle($itemId)
     {
-        $user = auth()->user();
-        $item = Item::find($itemId);
-
-        $like = Like::where('user_id', $user->id)
-            ->where('item_id', $itemId)
-            ->first();
+        $userId = auth()->id();
+        $like = Like::firstWhere(['user_id' => $userId, 'item_id' => $itemId]);
 
         if ($like) {
             $like->delete();
         } else {
             Like::create([
-                'user_id' => $user->id,
+                'user_id' => $userId,
                 'item_id' => $itemId,
             ]);
         }

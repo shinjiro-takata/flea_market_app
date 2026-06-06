@@ -44,13 +44,13 @@
 
     <main>
         @if ($message = session('success'))
-        <div style="background: #d4edda; color: #155724; padding: 12px 20px; margin: 10px 0; border-radius: 4px; text-align: center;">
+        <div class="alert-success">
             {{ $message }}
         </div>
         @endif
 
         @if ($message = session('error'))
-        <div style="background: #f8d7da; color: #721c24; padding: 12px 20px; margin: 10px 0; border-radius: 4px; text-align: center;">
+        <div class="alert-error">
             {{ $message }}
         </div>
         @endif

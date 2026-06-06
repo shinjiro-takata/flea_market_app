@@ -148,7 +148,7 @@ class UserProfileTest extends TestCase
         $response->assertStatus(200);
 
         // プロフィール画像が表示されていることを確認
-        $response->assertSee('profiles/user-avatar.jpg');
+        $response->assertSee(asset('storage/profiles/user-avatar.jpg'));
     }
 
     /**

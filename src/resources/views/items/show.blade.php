@@ -16,13 +16,8 @@
             <div class="gallery">
                 @if ($item->images->isNotEmpty())
                 @foreach ($item->images as $image)
-                @php
-                $imageSrc = \Illuminate\Support\Str::startsWith($image->image_path, ['http://', 'https://'])
-                ? $image->image_path
-                : asset('storage/' . $image->image_path);
-                @endphp
                 <div class="gallery__item">
-                    <img src="{{ $imageSrc }}" alt="{{ $item->name }}">
+                    <img src="{{ $image->image_src }}" alt="{{ $item->name }}">
                 </div>
                 @endforeach
                 @else
@@ -90,6 +85,10 @@
                     <div class="info-row">
                         <div class="info-label">商品の状態</div>
                         <div class="info-value">{{ $item->condition ?? '未設定' }}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">出品者</div>
+                        <div class="info-value">{{ $item->seller->name }}</div>
                     </div>
                 </div>
 

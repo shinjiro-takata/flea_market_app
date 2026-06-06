@@ -4,11 +4,11 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegistrationTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /**
      * 名前が入力されていない場合、バリデーションメッセージが表示される
@@ -21,8 +21,8 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
+        $response->assertStatus(302); // リダイレクト
         $response->assertSessionHasErrors('name');
-        $this->assertNotNull($response->getSession()->get('errors'));
     }
 
     /**
@@ -36,8 +36,8 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
+        $response->assertStatus(302); // リダイレクト
         $response->assertSessionHasErrors('email');
-        $this->assertNotNull($response->getSession()->get('errors'));
     }
 
     /**
@@ -51,8 +51,8 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
+        $response->assertStatus(302); // リダイレクト
         $response->assertSessionHasErrors('password');
-        $this->assertNotNull($response->getSession()->get('errors'));
     }
 
     /**
@@ -67,8 +67,8 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'pass123',
         ]);
 
+        $response->assertStatus(302); // リダイレクト
         $response->assertSessionHasErrors('password');
-        $this->assertNotNull($response->getSession()->get('errors'));
     }
 
     /**
@@ -83,12 +83,12 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'differentpassword123',
         ]);
 
+        $response->assertStatus(302); // リダイレクト
         $response->assertSessionHasErrors('password');
-        $this->assertNotNull($response->getSession()->get('errors'));
     }
 
     /**
-     * 全ての項目が入力されている場合、会員情報が登録され、ログイン状態になる
+     * 全ての項目が入力されている場合、会員情報が登録され、メール認証画面に遷移する
      */
     public function test_registration_succeeds_with_valid_data()
     {
@@ -99,6 +99,9 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
+        $response->assertStatus(302);
+        $response->assertRedirect('email/verify');
+
         // ユーザーが登録されたか確認
         $this->assertDatabaseHas('users', [
             'email' => 'test@example.com',
@@ -106,6 +109,10 @@ class RegistrationTest extends TestCase
         ]);
 
         // ユーザーがログインしているか確認
-        $this->assertAuthenticatedAs(User::where('email', 'test@example.com')->first());
+        $user = User::where('email', 'test@example.com')->first();
+        $this->assertAuthenticatedAs($user);
+
+        // メール認証画面へリダイレクトされているか確認
+        $response->assertRedirect(route('verification.notice'));
     }
 }

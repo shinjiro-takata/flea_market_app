@@ -18,12 +18,7 @@
                 <div class="item-info-row">
                     @if($item->images->isNotEmpty())
                     <div class="item-image-container">
-                        @php
-                        $imageSrc = \Illuminate\Support\Str::startsWith($item->images->first()->image_path, ['http://', 'https://'])
-                        ? $item->images->first()->image_path
-                        : asset('storage/' . $item->images->first()->image_path);
-                        @endphp
-                        <img src="{{ $imageSrc }}" alt="{{ $item->name }}">
+                        <img src="{{ $item->first_image_src }}" alt="{{ $item->name }}">
                     </div>
                     @endif
 

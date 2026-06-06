@@ -48,7 +48,7 @@ class UserProfileEditTest extends TestCase
         $response->assertSee('東京都千代田区 丸の内1-1-1');
 
         // プロフィール画像が表示されていることを確認
-        $response->assertSee('profiles/user-avatar.jpg');
+        $response->assertSee(asset('storage/profiles/user-avatar.jpg'));
     }
 
     /**

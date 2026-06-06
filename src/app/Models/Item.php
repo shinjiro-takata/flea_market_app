@@ -53,4 +53,23 @@ class Item extends Model
     {
         return $this->comments()->count();
     }
+
+    /**
+     * 最初の画像の表示用 URL を取得
+     * 外部URL、ローカルストレージ、デフォルト画像を自動判定
+     */
+    public function getFirstImageSrcAttribute(): string
+    {
+        if ($this->images->isEmpty()) {
+            return asset('images/no-image.png');
+        }
+
+        $imagePath = $this->images->first()->image_path;
+
+        if (\Illuminate\Support\Str::startsWith($imagePath, ['http://', 'https://'])) {
+            return $imagePath;
+        }
+
+        return asset('storage/' . $imagePath);
+    }
 }

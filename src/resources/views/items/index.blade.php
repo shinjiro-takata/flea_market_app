@@ -28,17 +28,7 @@
         @foreach ($items as $item)
         <a href="{{ route('items.show', ['item_id' => $item->id]) }}" class="card">
             <div class="card__image">
-                @if ($item->images->isNotEmpty())
-                @php
-                $firstImagePath = $item->images->first()->image_path;
-                $firstImageSrc = \Illuminate\Support\Str::startsWith($firstImagePath, ['http://', 'https://'])
-                ? $firstImagePath
-                : asset('storage/' . $firstImagePath);
-                @endphp
-                <img src="{{ $firstImageSrc }}" alt="{{ $item->name }}">
-                @else
-                <span>画像なし</span>
-                @endif
+                <img src="{{ $item->first_image_src }}" alt="{{ $item->name }}">
 
                 @if ($item->status === 'sold')
                 <span class="card__badge">Sold</span>

@@ -19,4 +19,19 @@ class ItemImage extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    // =============== アクセッサ ===============
+
+    /**
+     * 画像の表示用 URL を取得
+     * 外部URL、ローカルストレージ、デフォルト画像を自動判定
+     */
+    public function getImageSrcAttribute(): string
+    {
+        if (\Illuminate\Support\Str::startsWith($this->image_path, ['http://', 'https://'])) {
+            return $this->image_path;
+        }
+
+        return asset('storage/' . $this->image_path);
+    }
 }
