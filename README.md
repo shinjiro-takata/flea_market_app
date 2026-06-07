@@ -109,23 +109,37 @@ STRIPE_PUBLISHABLE_KEY=your_publishable_key
 ### 5) アプリキー生成
 
 ```bash
-docker-compose exec php php /var/www/artisan key:generate
+docker-compose exec php php artisan key:generate
 ```
 
 ### 6) マイグレーション
 
 ```bash
-docker-compose exec php php /var/www/artisan migrate
+docker-compose exec php php artisan migrate
 ```
 
-### 7) 動作確認
+### 7) シーダー実行（デモデータ投入）
+
+カテゴリとダミーデータを入れる場合は、続けて以下を実行してください。
+
+```bash
+docker-compose exec php php artisan db:seed
+```
+
+※ データを一度まっさらにして、マイグレーションとシーディングをまとめてやり直したい場合は以下でもOKです。
+
+```bash
+docker-compose exec php php artisan migrate:fresh --seed
+```
+
+### 8) 動作確認
 
 ブラウザで http://localhost にアクセスしてください。
 
 ## テスト実行
 
 ```bash
-docker-compose exec -T php php /var/www/artisan test
+docker-compose exec -T php php artisan test
 ```
 
 ## よく使うコマンド
@@ -138,10 +152,13 @@ docker-compose down
 docker-compose restart
 
 # ルート一覧確認
-docker-compose exec php php /var/www/artisan route:list
+docker-compose exec php php artisan route:list
 
 # DB 初期化（全削除して再作成）
-docker-compose exec php php /var/www/artisan migrate:fresh
+docker-compose exec php php artisan migrate:fresh
+
+# DB 初期化 + シーダー実行
+docker-compose exec php php artisan migrate:fresh --seed
 ```
 
 ## 補足
